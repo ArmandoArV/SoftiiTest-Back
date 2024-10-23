@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import employeeRouter from "./routes/employee";
 import shiftRouter from "./routes/shift";
 import paymentRouter from "./routes/payment";
+import tipsRouter from "./routes/tips";
 
 dotenv.config();
 const app = express();
@@ -29,6 +30,7 @@ app.use(requestLogger);
 app.use("/", employeeRouter);
 app.use("/", shiftRouter);
 app.use("/", paymentRouter);
+app.use("/", tipsRouter);
 
 app
   .listen(PORT, () => {
