@@ -7,15 +7,15 @@
 import { Router } from "express";
 import employeeController from "../controller/employeeController";
 
-const routerEmployee = Router();
+const employeeRouter = Router();
 
 // Define the routes
-routerEmployee.get("/employees", employeeController.getEmployees);
-routerEmployee.get("/employees/:id", employeeController.getEmployee);
-routerEmployee.post("/employees/add", employeeController.addEmployee);
-routerEmployee.put("/employees/update/:id", employeeController.updateEmployee);
-routerEmployee.delete(
+employeeRouter.get("/employees", employeeController.getEmployees);
+employeeRouter.get("/employees/:id", employeeController.getEmployee);
+employeeRouter.post("/employees/add", employeeController.addEmployee);
+employeeRouter.put("/employees/update/:id", employeeController.updateEmployee);
+employeeRouter.delete(
   "/employees/delete/:id",
   employeeController.deleteEmployee
 );
-export default routerEmployee;
+export default employeeRouter;

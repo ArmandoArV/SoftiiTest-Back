@@ -1,7 +1,13 @@
+/*
+  Made by: Armando Arredondo Valle
+  Date: 22/10/2024
+
+*/
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
-import routerEmployee from "./routes/employee";
-import routerShift from "./routes/shift";
+import employeeRouter from "./routes/employee";
+import shiftRouter from "./routes/shift";
+import paymentRouter from "./routes/payment";
 
 dotenv.config();
 const app = express();
@@ -20,8 +26,9 @@ const requestLogger = (
 
 app.use(requestLogger);
 
-app.use("/", routerEmployee);
-app.use("/", routerShift);
+app.use("/", employeeRouter);
+app.use("/", shiftRouter);
+app.use("/", paymentRouter);
 
 app
   .listen(PORT, () => {

@@ -1,5 +1,5 @@
 export interface IShift {
   idShift: number;
-  dateShift: string;
+  dateShift: Date;
   totalTips: number;
 }
