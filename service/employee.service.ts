@@ -1,6 +1,6 @@
 import connection from "../helpers/mysql-config";
 import { IEmployee } from "../interfaces/IEmployee";
-import { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
+import { RowDataPacket, ResultSetHeader } from "mysql2/promise";
 
 const employeeService = {
   getEmployees: async (): Promise<IEmployee[]> => {
@@ -17,12 +17,12 @@ const employeeService = {
       [id]
     );
     conn.release();
-    
+
     // Return null if no employee is found
     if (data.length === 0) {
       return null;
     }
-    
+
     return data[0] as IEmployee;
   },
 
@@ -34,6 +34,21 @@ const employeeService = {
     );
     conn.release();
     return data.insertId;
+  },
+
+  updateEmployee: async (id: number, employee: IEmployee): Promise<void> => {
+    const conn = await connection.getConnection();
+    await conn.query("UPDATE Employee SET name = ? WHERE idEmployee = ?", [
+      employee.name,
+      id,
+    ]);
+    conn.release();
+  },
+
+  deleteEmployee: async (id: number): Promise<void> => {
+    const conn = await connection.getConnection();
+    await conn.query("DELETE FROM Employee WHERE idEmployee = ?", [id]);
+    conn.release();
   },
 };
 

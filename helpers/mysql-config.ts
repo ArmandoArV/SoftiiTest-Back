@@ -13,12 +13,6 @@ const localConfig: DbConfig = {
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 3306,
 };
 
-// Log the configuration for debugging
-console.log("DB_HOST:", process.env.DB_HOST);
-console.log("DB_USER:", process.env.DB_USER);
-console.log("DB_NAME:", process.env.DB_NAME);
-console.log("DB_PORT:", process.env.DB_PORT);
-
 const connection: Pool = mysql.createPool(localConfig);
 
 async function testConnection() {

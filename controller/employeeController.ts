@@ -36,7 +36,41 @@ const employeeController = {
     try {
       const newEmployee: IEmployee = req.body;
       const id = await employeeService.addEmployee(newEmployee);
-      res.status(201).json({ id });
+      res.status(201).json({
+        message: "Employee added successfully",
+        id: id,
+      });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  updateEmployee: async (req: Request, res: Response): Promise<void> => {
+    try {
+      const id = Number(req.params.id);
+      if (isNaN(id)) {
+        res.status(400).json({ message: "Invalid ID" });
+        return;
+      }
+
+      const employee: IEmployee = req.body;
+      await employeeService.updateEmployee(id, employee);
+      res.json({ message: "Employee with ID " + id + " updated" });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+
+  deleteEmployee: async (req: Request, res: Response): Promise<void> => {
+    try {
+      const id = Number(req.params.id);
+      if (isNaN(id)) {
+        res.status(400).json({ message: "Invalid ID" });
+        return;
+      }
+
+      await employeeService.deleteEmployee(id);
+      res.json({ message: "Employee with ID " + id + " deleted" });
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
