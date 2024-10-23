@@ -5,6 +5,7 @@
 */
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
+import cors from "cors"; // Import the cors package
 import employeeRouter from "./routes/employee";
 import shiftRouter from "./routes/shift";
 import paymentRouter from "./routes/payment";
@@ -14,6 +15,10 @@ dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT;
+
+// Enable CORS for all routes
+app.use(cors());
+
 app.use(express.json());
 
 const requestLogger = (
