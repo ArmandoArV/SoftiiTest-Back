@@ -3,22 +3,21 @@
   Date: 22/10/2024
 
 */
-
 import { Request, Response } from "express";
-import { IEmployee } from "../interfaces/IEmployee";
-import employeeService from "../service/employee.service";
+import { IShift } from "../interfaces/IShift";
+import shiftService from "../service/shift.service";
 
-const employeeController = {
-  getEmployees: async (req: Request, res: Response): Promise<void> => {
+const shiftController = {
+  getShifts: async (req: Request, res: Response): Promise<void> => {
     try {
-      const data = await employeeService.getEmployees();
+      const data = await shiftService.getShifts();
       res.json(data);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
   },
 
-  getEmployee: async (req: Request, res: Response): Promise<void> => {
+  getShift: async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
       if (isNaN(id)) {
@@ -26,9 +25,9 @@ const employeeController = {
         return;
       }
 
-      const data = await employeeService.getEmployee(id);
+      const data = await shiftService.getShift(id);
       if (!data) {
-        res.status(404).json({ message: "Employee not found" });
+        res.status(404).json({ message: "Shift not found" });
         return;
       }
 
@@ -38,12 +37,12 @@ const employeeController = {
     }
   },
 
-  addEmployee: async (req: Request, res: Response): Promise<void> => {
+  addShift: async (req: Request, res: Response): Promise<void> => {
     try {
-      const newEmployee: IEmployee = req.body;
-      const id = await employeeService.addEmployee(newEmployee);
+      const newShift: IShift = req.body;
+      const id = await shiftService.addShift(newShift);
       res.status(201).json({
-        message: "Employee added successfully",
+        message: "Shift added successfully",
         id: id,
       });
     } catch (error: any) {
@@ -51,7 +50,7 @@ const employeeController = {
     }
   },
 
-  updateEmployee: async (req: Request, res: Response): Promise<void> => {
+  updateShift: async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
       if (isNaN(id)) {
@@ -59,15 +58,15 @@ const employeeController = {
         return;
       }
 
-      const employee: IEmployee = req.body;
-      await employeeService.updateEmployee(id, employee);
-      res.json({ message: "Employee with ID " + id + " updated" });
+      const shift: IShift = req.body;
+      await shiftService.updateShift(id, shift);
+      res.json({ message: "Shift with ID " + id + " updated" });
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
   },
 
-  deleteEmployee: async (req: Request, res: Response): Promise<void> => {
+  deleteShift: async (req: Request, res: Response): Promise<void> => {
     try {
       const id = Number(req.params.id);
       if (isNaN(id)) {
@@ -75,12 +74,12 @@ const employeeController = {
         return;
       }
 
-      await employeeService.deleteEmployee(id);
-      res.json({ message: "Employee with ID " + id + " deleted" });
+      await shiftService.deleteShift(id);
+      res.json({ message: "Shift with ID " + id + " deleted" });
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }
   },
 };
 
-export default employeeController;
+export default shiftController;

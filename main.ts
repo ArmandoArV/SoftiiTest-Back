@@ -1,8 +1,8 @@
 import express, { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import routerEmployee from "./routes/employee";
+import routerShift from "./routes/shift";
 
-// configures dotenv to work in your application
 dotenv.config();
 const app = express();
 
@@ -21,12 +21,12 @@ const requestLogger = (
 app.use(requestLogger);
 
 app.use("/", routerEmployee);
+app.use("/", routerShift);
 
 app
   .listen(PORT, () => {
     console.log("Server running at PORT: ", PORT);
   })
   .on("error", (error) => {
-    // gracefully handle error
     throw new Error(error.message);
   });
