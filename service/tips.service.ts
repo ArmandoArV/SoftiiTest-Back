@@ -30,8 +30,15 @@ const tipService = {
     return data[0] as ITip;
   },
 
-  // Add a new tip
   addTip: async (tip: ITip): Promise<number> => {
+    if (!tip.paymentMethod || !tip.paymentMethod.idPaymentMethod) {
+      throw new Error("Payment method is missing or invalid");
+    }
+
+    if (!tip.shift || !tip.shift.idShift) {
+      throw new Error("Shift ID is missing or invalid");
+    }
+
     const conn = await connection.getConnection();
     const [data] = await conn.query<ResultSetHeader>(
       "INSERT INTO Tip (amount, PaymentMethod_idPaymentMethod, Shift_idShift) VALUES (?, ?, ?)",
